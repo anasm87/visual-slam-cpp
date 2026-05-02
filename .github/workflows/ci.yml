@@ -26,11 +26,11 @@ jobs:
     - name: Install required system packages
       run: |
         sudo apt-get update
-        sudo apt-get install -y pkg-config curl zip unzip tar libx11-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxext-dev libxcursor-dev libxrandr-dev libxinerama-dev
+        sudo apt-get install -y build-essential autoconf autoconf-archive automake libtool pkg-config curl zip unzip tar libx11-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxext-dev libxcursor-dev libxrandr-dev libxinerama-dev ninja-build
 
     - name: Configure CMake
       run: |
-        cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE="$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"
+        cmake -B build -S . -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake"
 
     - name: Build
       run: cmake --build build --config Release
